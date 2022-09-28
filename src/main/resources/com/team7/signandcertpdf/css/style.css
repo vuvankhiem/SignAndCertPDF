@@ -1,0 +1,101 @@
+*{
+    -fx-background-position: center center;
+}
+.top {
+    -fx-background-color: white;
+    -fx-border-width: 0 0 2px 0;
+}
+.button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-background-repeat: stretch;
+}
+.title-heading {
+    -fx-background-image: url("../images/digital-signature.png");
+    -fx-background-position: 10px center;
+    -fx-background-repeat: stretch;
+    -fx-background-size: 30 30;
+}
+.close-icon {
+    -fx-background-size: 10 10;
+    -fx-background-image: url("../images/close-red.png");
+}
+.close-icon:hover {
+    -fx-background-color: red;
+    -fx-background-image: url("../images/close-white.png");
+}
+.hide-icon {
+    -fx-background-size: 10 10;
+    -fx-background-image: url("../images/hide.png");
+}
+.hide-icon:hover {
+    -fx-background-color: #eeeee4;
+}
+.maximize-icon {
+    -fx-background-size: 13 13;
+    -fx-background-image: url("../images/maximize.png");
+}
+.maximize-icon:hover {
+    -fx-background-color: #eeeee4;
+}
+.minimize-icon {
+    -fx-background-size: 13 13;
+    -fx-background-image: url("../images/minimize.png");
+}
+.minimize-icon:hover {
+    -fx-background-color: #eeeee4;
+}
+.btn-primary {
+    -fx-background-position: 10px center;
+    -fx-background-size: 25 25;
+}
+.folder-icon {
+    -fx-background-image: url("../images/folder.png");
+    -fx-background-color: #ECC843;
+}
+.digital-signature-icon {
+    -fx-background-image: url("../images/sign.png");
+    -fx-background-color: #a0f97b;
+}
+.certification-icon {
+    -fx-background-size: 23 23;
+    -fx-background-image: url("../images/certificate.png");
+    -fx-background-color: #43CEEC;
+}
+.keystore-icon {
+    -fx-background-image: url("../images/keystore.png");
+    -fx-background-color: #F97BA0;
+}
+.input-box {
+    -fx-background-color: transparent;
+    -fx-translate-y: -7;
+}
+.label-title {
+    -fx-translate-y: -10;
+    -fx-translate-x: 15;
+    -fx-background-color: white;
+}
+.box {
+    -fx-border-color: gray;
+    -fx-border-width: 2;
+    -fx-border-radius: 7;
+}
+.border-bottom-box {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 1.5 0;
+    -fx-border-color: gray;
+}
+.text-area {
+    -fx-background-color: none;
+}
+.text-area:focused {
+    -fx-background-color: none;
+    -fx-border-color: none;
+}
+.success {
+    -fx-text-fill: #28a745;
+}
+.danger {
+    -fx-text-fill: #dc3545;
+}
