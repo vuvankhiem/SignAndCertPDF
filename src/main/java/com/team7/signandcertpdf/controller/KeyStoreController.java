@@ -14,6 +14,7 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -56,6 +57,15 @@ public class KeyStoreController implements Initializable {
     }
     @FXML
     public void executeScript(ActionEvent actionEvent) {
+        String command = script.getText();
+        ProcessBuilder processBuilder = new ProcessBuilder( "cmd.exe" ,"/c" , command);
+        processBuilder.redirectErrorStream(true);
+        try {
+            processBuilder.start();
+            displayNotification("Execute successfully !", "success");
+        } catch (IOException e) {
+            displayNotification("Fail : " + e.getMessage(), "danger");
+        }
     }
     @FXML
     public void clearAllField(ActionEvent actionEvent) {
