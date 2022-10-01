@@ -6,6 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -16,10 +19,13 @@ import org.jpedal.render.output.html.HTMLConversionOptions;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
+import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
 
@@ -48,7 +54,7 @@ public class Util {
     }
 
     public static String getIndexFileInFolder (String folder) {
-        String masterPath = System.getProperty("user.dir") + File.separator + "store" + File.separator + folder;
+        String masterPath = System.getProperty("user.dir") + File.separator + "store" + File.separator + "pdf" + File.separator + folder;
         AtomicReference<String> resultPath = new AtomicReference<>("");
         try {
             Stream<Path> pathStream = Files.walk(Paths.get(masterPath));
@@ -58,7 +64,7 @@ public class Util {
                         resultPath.set(path.toString());
                     });
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
         return resultPath.get();
     }
@@ -77,6 +83,44 @@ public class Util {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public static TreeMap<String,String> getAllKeyStore () {
+        TreeMap<String,String> maps = new TreeMap<>();
+        String url = System.getProperty("user.dir") + File.separator + "store" + File.separator + "keystore";
+        try (Stream<Path> path = Files.walk(Paths.get(url))) {
+            path.filter(Files::isRegularFile)
+                    .forEach(p -> {
+                        maps.put(p.getFileName().toString(), p.toString());
+                    });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return maps;
+    }
+    public static void displayNotification (Label notification, String content, String styleClass) {
+        notification.setText(content);
+        notification.getStyleClass().remove(0);
+        if (notification.getStyleClass().size() == 1) {
+            notification.getStyleClass().remove(0);
+        }
+        notification.getStyleClass().add(styleClass);
+    }
+    public static void loadingFileOnWebview (File file, Label pathFile, WebView webView) {
+        String folderName = file.getName().replaceAll("\\.pdf","");
+        File checkFolder = new File(System.getProperty("user.dir") + File.separator + "store" +File.separator + folderName);
+        if (!checkFolder.exists()) {
+            Util.convertPDFToHtml(file.getAbsolutePath());
+        }
+        pathFile.setText(file.getAbsolutePath());
+        WebEngine webEngine = webView.getEngine();
+        File f = new File(Util.getIndexFileInFolder(folderName));
+        URL url = null;
+        try {
+            url = f.toURI().toURL();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        webEngine.load(url.toString());
     }
 
 }

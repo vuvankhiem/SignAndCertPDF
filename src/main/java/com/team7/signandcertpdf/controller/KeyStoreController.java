@@ -1,6 +1,7 @@
 package com.team7.signandcertpdf.controller;
 
 import com.team7.signandcertpdf.util.Constant;
+import com.team7.signandcertpdf.util.Util;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -42,29 +43,34 @@ public class KeyStoreController implements Initializable {
         onchangeEvent(dname_6);
         onchangeEvent(password);
         onchangeEvent(retypePassword);
+
     }
     @FXML
     public void copyScript(ActionEvent actionEvent) {
         if (script.getText().isEmpty() && !validate()) {
-            displayNotification("Copy fail !", "danger");
+            Util.displayNotification(notification,"Copy fail !", "danger");
         } else {
             Clipboard clipboard = Clipboard.getSystemClipboard();
             ClipboardContent content = new ClipboardContent();
             content.putString(script.getText());
             clipboard.setContent(content);
-            displayNotification("Copied !", "success");
+            Util.displayNotification(notification,"Copied !", "success");
         }
     }
     @FXML
     public void executeScript(ActionEvent actionEvent) {
         String command = script.getText();
-        ProcessBuilder processBuilder = new ProcessBuilder( "cmd.exe" ,"/c" ,command);
-        processBuilder.redirectErrorStream(true);
-        try {
-            processBuilder.start();
-            displayNotification("Execute successfully !", "success");
-        } catch (IOException e) {
-            displayNotification("Fail : " + e.getMessage(), "danger");
+        if (command.isEmpty()) {
+            Util.displayNotification(notification,"Execute fail !", "danger");
+        } else {
+            ProcessBuilder processBuilder = new ProcessBuilder( "cmd.exe" ,"/c" ,command);
+            processBuilder.redirectErrorStream(true);
+            try {
+                processBuilder.start();
+                Util.displayNotification(notification,"Execute successfully !", "success");
+            } catch (IOException e) {
+                Util.displayNotification(notification,"Fail : " + e.getMessage(), "danger");
+            }
         }
     }
     @FXML
@@ -95,23 +101,23 @@ public class KeyStoreController implements Initializable {
     }
     private boolean validate () {
         if (alias.getText().isEmpty()) {
-            displayNotification("- alias can't be empty !", "danger");
+            Util.displayNotification(notification,"- alias can't be empty !", "danger");
             return false;
         }
         if (alias.getText().contains(" ")) {
-            displayNotification("- alias cannot contain space characters !", "danger");
+            Util.displayNotification(notification,"- alias cannot contain space characters !", "danger");
             return false;
         }
         if (dname_1.getText().isEmpty() || dname_2.getText().isEmpty() || dname_3.getText().isEmpty() || dname_4.getText().isEmpty() || dname_5.getText().isEmpty() || dname_6.getText().isEmpty()) {
-            displayNotification("-dname can't be empty !", "danger");
+            Util.displayNotification(notification,"-dname can't be empty !", "danger");
             return false;
         }
         if (password.getText().isEmpty() || retypePassword.getText().isEmpty()) {
-            displayNotification("Password field or Retype password field can't be empty !","danger");
+            Util.displayNotification(notification,"Password field or Retype password field can't be empty !","danger");
             return false;
         }
         if (!password.getText().equals(retypePassword.getText())) {
-            displayNotification("Password and Retype password don't match !","danger");
+            Util.displayNotification(notification,"Password and Retype password don't match !","danger");
             return false;
         }
         notification.setText("");
@@ -120,7 +126,7 @@ public class KeyStoreController implements Initializable {
     private String generateScript () {
         String storePath = Constant.keyStorePath + File.separator + alias.getText() + ".pfx";
         return "keytool -genkeypair -alias " + alias.getText()
-                + " -keyalg DSA -keystore " + storePath
+                + " -keyalg RSA -keystore " + storePath
                 + " -storetype PKCS12 -storepass " + password.getText()
                 + " -validity 730 -keysize 2048 -dname \"CN=" + dname_1.getText()
                 +", OU=" + dname_2.getText()
@@ -130,14 +136,7 @@ public class KeyStoreController implements Initializable {
                 +", C=" + dname_6.getText()
                 +"\"";
     }
-    private void displayNotification (String content, String styleClass) {
-        notification.setText(content);
-        notification.getStyleClass().remove(0);
-        if (notification.getStyleClass().size() == 1) {
-            notification.getStyleClass().remove(0);
-        }
-        notification.getStyleClass().add(styleClass);
-    }
+
 
 
 }

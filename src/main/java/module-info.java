@@ -6,7 +6,12 @@ module com.team7.signandcertpdf {
     requires buildvu.html;
     requires javafx.base;
     requires com.gluonhq.charm.glisten;
+    requires kernel;
+    requires sign;
+    requires org.bouncycastle.provider;
+    requires java.desktop;
 
+    opens com.team7.signandcertpdf.controller;
     opens com.team7.signandcertpdf to javafx.fxml;
     exports com.team7.signandcertpdf to javafx.graphics;
     exports com.team7.signandcertpdf.controller;

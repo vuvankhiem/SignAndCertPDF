@@ -67,6 +67,10 @@
     -fx-background-image: url("../images/keystore.png");
     -fx-background-color: #F97BA0;
 }
+.file-chooser-icon {
+    -fx-background-image: url("../images/file-choooser.png");
+    -fx-background-size : 30 30;
+}
 .input-box {
     -fx-background-color: transparent;
     -fx-translate-y: -7;
