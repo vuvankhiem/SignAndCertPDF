@@ -80,8 +80,8 @@ public class Util {
             newWindow.initModality(Modality.WINDOW_MODAL);
             newWindow.initOwner(window);
             newWindow.show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException ignored) {
+            throw new RuntimeException(ignored);
         }
     }
     public static TreeMap<String,String> getAllKeyStore () {

@@ -10,6 +10,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: com.sun.xml.security:xml-security-impl:1.0" level="project" />
     <orderEntry type="library" name="Maven: com.itextpdf:barcodes:7.2.3" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.36" level="project" />
     <orderEntry type="library" name="Maven: com.itextpdf:font-asian:7.2.3" level="project" />

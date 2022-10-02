@@ -17,7 +17,7 @@ public class Signature {
             throws GeneralSecurityException, IOException {
         PdfReader reader = new PdfReader(src);
         PdfSigner signer = new PdfSigner(reader, new FileOutputStream(dest), new StampingProperties());
-        Rectangle rect = new Rectangle(36, 648, 200, 100);
+        Rectangle rect = new Rectangle(36, 750, 200, 100);
         PdfSignatureAppearance appearance = signer.getSignatureAppearance();
         appearance
                 .setReason(reason)

@@ -9,10 +9,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.web.WebEngine;
@@ -85,6 +82,11 @@ public class MainController implements Initializable {
         Util.loadingFileOnWebview(file, pathFile, webView);
         btnSignature.setDisable(false);
         btnCertificate.setDisable(false);
+        if (pathFile.getText().endsWith("-signature.pdf")) {
+            SignatureController._dest2 = pathFile.getText();
+        } else {
+            SignatureController._dest2 = "";
+        }
     }
     public void showKeyStoreForm(ActionEvent actionEvent) {
         Stage oldWindow = Util.getStageByActionEvent(actionEvent);
@@ -101,4 +103,17 @@ public class MainController implements Initializable {
         Util.openScene(oldWindow, newWindow, "views/signForm.fxml", "css/style.css");
     }
 
+    public void showCertificationInfo(ActionEvent actionEvent) {
+        try {
+            Stage oldWindow = Util.getStageByActionEvent(actionEvent);
+            Stage newWindow = new Stage();
+            newWindow.setTitle("Certificate Viewer");
+            newWindow.setResizable(false);
+            Util.openScene(oldWindow, newWindow, "views/certification.fxml", "css/style.css");
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText("Document unsigned !");
+            alert.showAndWait();
+        }
+    }
 }

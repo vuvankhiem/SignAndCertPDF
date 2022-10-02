@@ -40,7 +40,9 @@ public class SignatureController implements Initializable {
 
     private final DirectoryChooser directoryChooser = new DirectoryChooser();
     public TextField dest;
-
+    public static String _keystore2;
+    public static String _password2;
+    public static String _dest2;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -51,10 +53,10 @@ public class SignatureController implements Initializable {
         }
     }
     public void onSigning(ActionEvent actionEvent) throws IOException, GeneralSecurityException{
-        String _password = password.getText();
+        String _password = _password2 = password.getText();
         String _reason = reason.getText();
         String _location = location.getText();
-        String _keystore = Util.getAllKeyStore().get(keyStore.getSelectionModel().getSelectedItem());
+        String _keystore = _keystore2 = Util.getAllKeyStore().get(keyStore.getSelectionModel().getSelectedItem());
         String _dest = dest.getText();
         String _src = MainController.pathFile2.getText();
         if (_password.isEmpty() || _reason.isEmpty() || _location.isEmpty() || _keystore.isEmpty() || _dest.isEmpty()) {
@@ -62,7 +64,7 @@ public class SignatureController implements Initializable {
             return;
         }
         File fsrc = new File(_src);
-        _dest = _dest + File.separator + fsrc.getName().replaceAll(".pdf","-signature.pdf");
+        _dest = _dest2 = _dest + File.separator + fsrc.getName().replaceAll(".pdf","-signature.pdf");
         BouncyCastleProvider provider = new BouncyCastleProvider();
         Security.addProvider(provider);
         try {

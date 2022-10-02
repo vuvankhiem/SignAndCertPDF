@@ -10,7 +10,9 @@ module com.team7.signandcertpdf {
     requires sign;
     requires org.bouncycastle.provider;
     requires java.desktop;
-
+    requires java.base;
+    requires jdk.unsupported;
+    opens com.team7.signandcertpdf.object;
     opens com.team7.signandcertpdf.controller;
     opens com.team7.signandcertpdf to javafx.fxml;
     exports com.team7.signandcertpdf to javafx.graphics;

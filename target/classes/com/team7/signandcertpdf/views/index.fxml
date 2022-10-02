@@ -50,7 +50,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="29.0" prefWidth="914.0" styleClass="top">
          <children>
-            <Button fx:id="browerFileButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#onLoadingFile" prefHeight="30.0" prefWidth="103.0" text="Open File" textFill="#1a00c3">
+            <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#onLoadingFile" prefHeight="30.0" prefWidth="103.0" text="Open File" textFill="#1a00c3">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
                </HBox.margin>
@@ -74,7 +74,7 @@
                   <String fx:value="digital-signature-icon" />
                </styleClass>
             </Button>
-            <Button fx:id="btnCertificate" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="27.0" prefWidth="113.0" text="Certificate" textFill="#1a00c3">
+            <Button fx:id="btnCertificate" onAction="#showCertificationInfo" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="27.0" prefWidth="113.0" text="Certificate" textFill="#1a00c3">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
