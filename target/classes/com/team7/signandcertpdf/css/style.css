@@ -103,3 +103,12 @@
 .danger {
     -fx-text-fill: #dc3545;
 }
+.table-view {
+    -fx-background-color: white;
+}
+.table-view:focused {
+    -fx-border-color: none;
+}
+.table-cell:selected {
+    -fx-text-fill: red;
+}
